@@ -15,6 +15,8 @@ import account.User;
  * @author Wombat
  */
 public abstract class Entry implements Serializable {
+
+    private String title;
     /**
      * Description of the property ratingIMDb.
      */
@@ -36,9 +38,9 @@ public abstract class Entry implements Serializable {
     private LocalDate releaseDate = null;
 
     /**
-     * Description of the property lenght.
+     * Description of the property length.
      */
-    private double lenght;
+    private double length;
 
     /**
      * Description of the property price.
@@ -114,12 +116,12 @@ public abstract class Entry implements Serializable {
     }
 
     /**
-     * Returns lenght.
+     * Returns length.
      *
-     * @return lenght
+     * @return length
      */
-    public double getLenght() {
-        return this.lenght;
+    public double getLength() {
+        return this.length;
     }
 
     /**
@@ -144,5 +146,38 @@ public abstract class Entry implements Serializable {
 
     public boolean canWatchTier(User user) {
         return false;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setRatingIMDb(double ratingIMDb) {
+        this.ratingIMDb = ratingIMDb;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String toString()
+    {
+        return title+"- cena:"+price;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

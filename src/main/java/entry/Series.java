@@ -24,6 +24,8 @@ public class Series extends Entry {
      */
     private int subscriptionTier;
 
+    private int episodeNumber;
+
     /**
      * Description of the property episodes.
      */
@@ -100,5 +102,25 @@ public class Series extends Entry {
             return true;
         }
         return false;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setSubscriptionTier(int subscriptionTier) {
+        this.subscriptionTier = subscriptionTier;
+    }
+
+    public void setEpisodes(int episodes) {
+        this.episodeNumber = episodes;
+    }
+
+    public void setEpisodes(ArrayList<Episode> episodes) {
+        this.episodes = episodes;
+    }
+
+    public void setActors(ArrayList<Actor> actors) {
+        this.actors = actors;
     }
 }

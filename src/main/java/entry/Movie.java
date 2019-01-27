@@ -81,4 +81,16 @@ public class Movie extends Entry {
         }
         return false;
     }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public void setSubscriptionTier(int subscriptionTier) {
+        this.subscriptionTier = subscriptionTier;
+    }
+
+    public void setActors(ArrayList<Actor> actors) {
+        this.actors = actors;
+    }
 }

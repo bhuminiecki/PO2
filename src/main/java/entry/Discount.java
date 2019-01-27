@@ -16,20 +16,20 @@ public class Discount implements Runnable, Serializable {
 
     private LocalDate endDate;
 
-    private Entry discountedRntry;
+    private Entry discountedEntry;
 
     public Discount(BigDecimal val, Simulation parent, LocalDate start, LocalDate end, Entry entry) {
         value = val;
         parentSimulation = parent;
         startDate = start;
         endDate = end;
-        discountedRntry = entry;
+        discountedEntry = entry;
     }
 
     public void run() {
         while(parentSimulation.getCurrentDate().isBefore(startDate));
-        discountedRntry.setDiscount(value);
+        discountedEntry.setDiscount(value);
         while(parentSimulation.getCurrentDate().isBefore(endDate));
-        discountedRntry.setDiscount(new BigDecimal(0));
+        discountedEntry.setDiscount(new BigDecimal(0));
     }
 }

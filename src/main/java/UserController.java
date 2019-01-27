@@ -1,4 +1,5 @@
 import javafx.scene.control.ChoiceBox;
+import simulation.Simulation;
 
 import javax.xml.soap.Text;
 import java.awt.*;

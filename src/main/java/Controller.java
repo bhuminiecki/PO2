@@ -2,8 +2,11 @@ import account.Account;
 import account.Distributor;
 import account.User;
 import entry.Entry;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -12,12 +15,11 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.math.BigDecimal;
+import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 
-public class Controller {
+public class Controller implements Initializable{
 
     @FXML
     private DatePicker date;
@@ -65,12 +67,13 @@ public class Controller {
     public void startSimulation() {
         running.setVisible(true);
         Main.getSimulation().setStartDate(date.getValue());
-        Main.getSimulation().run();
+        new Thread(Main.getSimulation()).start();
     }
 
     public void stopSimulation() {
         running.setVisible(false);
         Main.getSimulation().setRun(false);
+        balance.setText(Main.getSimulation().getBalance().toString());
     }
 
     public void loadSimulation() {
@@ -193,8 +196,14 @@ public class Controller {
         chart.getData().clear();
         XYChart.Series series = new XYChart.Series();
         for (Map.Entry<LocalDate, BigDecimal> temp : data.entrySet()) {
-            series.getData().add(new XYChart.Data<>(temp.getKey(), temp.getValue()));
+            series.getData().add(new XYChart.Data<>(temp.getKey().toString(), temp.getValue()));
         }
         chart.getData().add(series);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        running.setVisible(false);
     }
 }

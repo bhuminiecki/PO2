@@ -95,6 +95,11 @@ public class User extends Account {
                 if (generator.nextInt(getParentSimulation().getProbability()) == 0) {
                     watch();
                 }
+                try {
+                    Thread.sleep(100);
+                }catch(InterruptedException x) {
+                    System.out.println(x.toString());
+                }
             }
         }
     }

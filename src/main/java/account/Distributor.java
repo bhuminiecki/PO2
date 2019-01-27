@@ -79,6 +79,11 @@ public class Distributor extends Account {
                 } else {
                     gotPaid = false;
                 }
+                try {
+                    Thread.sleep(100);
+                }catch(InterruptedException x) {
+                    System.out.println(x.toString());
+                }
             }
         }
     }

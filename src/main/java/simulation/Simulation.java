@@ -67,10 +67,10 @@ public class Simulation implements Runnable, Serializable {
     public void run() {
         Timer time;
         for (Account temp : accounts) {
-            temp.run();
+            new Thread(temp).start();
         }
         for (Discount temp : discounts) {
-            temp.run();
+            new Thread(temp).start();
         }
         currentDate = startDate;
         run = true;
@@ -81,6 +81,11 @@ public class Simulation implements Runnable, Serializable {
             currentDate = currentDate.plusDays(1);
             if (currentDate.getDayOfMonth() == 1) {
                 monthlyCheck();
+            }
+            try {
+                Thread.sleep(500);
+            }catch(InterruptedException x) {
+                System.out.println(x.toString());
             }
         }
     }
@@ -111,10 +116,8 @@ public class Simulation implements Runnable, Serializable {
                 LocalDate dDate = currentDate.plusDays(new Random().nextInt(100));
                 createDiscount(pool.getRandomEntry(), dDate, dDate.plusDays(new Random().nextInt(20) + 20), new BigDecimal(new Random().nextDouble() * 0.45 + 0.05));
             default:
-                synchronized (this) {
                     if (accounts.size() < maxUsers)
                         createRandomUser();
-                }
         }
     }
 
@@ -131,7 +134,7 @@ public class Simulation implements Runnable, Serializable {
         } while (existAccount(tempID));
         temp.setId(tempID);
         accounts.add(temp);
-        temp.run();
+        new Thread(temp).start();
     }
 
     public void createDistributor(String name, String psswd, String email, BigDecimal payment, int account) {
@@ -148,7 +151,7 @@ public class Simulation implements Runnable, Serializable {
         } while (existAccount(tempID));
         temp.setId(tempID);
         accounts.add(temp);
-        temp.run();
+        new Thread(temp).start();
     }
 
     private void createRandomUser() {
@@ -217,7 +220,9 @@ public class Simulation implements Runnable, Serializable {
     }
 
     public void createDiscount(Entry entry, LocalDate start, LocalDate finish, BigDecimal val) {
-        discounts.add(new Discount(val, this, start, finish, entry));
+        Discount temp = new Discount(val, this, start, finish, entry);
+        discounts.add(temp);
+        new Thread(temp).start();
     }
 
     public boolean existAccount(int id) {

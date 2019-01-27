@@ -178,6 +178,10 @@ public class Pool implements Serializable {
     }
 
     public Entry getRandomEntry() {
-        return new Movie();
+        return entries.get(new Random().nextInt(entries.size()));
+    }
+
+    public boolean isEmpty() {
+        return entries.size()==0;
     }
 }

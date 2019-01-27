@@ -10,11 +10,8 @@ import storage.Pool;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.nio.charset.Charset;
-import java.util.Timer;
 
 public class Simulation implements Runnable, Serializable {
 
@@ -24,11 +21,16 @@ public class Simulation implements Runnable, Serializable {
 
     private ArrayList<Account> accounts = new ArrayList<Account>();
 
-    private ArrayList<BigDecimal> tierCosts = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> tierCosts =
+            new ArrayList<BigDecimal>(Arrays.asList(
+                new BigDecimal(0),
+                new BigDecimal(10),
+                new BigDecimal(20),
+                new BigDecimal(50)));
 
     private ArrayList<Discount> discounts = new ArrayList<Discount>();
 
-    private Map<LocalDate, BigDecimal> data;
+    private Map<LocalDate, BigDecimal> data = new HashMap<LocalDate, BigDecimal>();
 
     private LocalDate startDate;
 
@@ -36,11 +38,11 @@ public class Simulation implements Runnable, Serializable {
 
     private int lossCounter = 0;
 
-    private int probability;
+    private int probability = 10;
 
-    private int maxUsers;
+    private int maxUsers = 100;
 
-    private int maxEntries;
+    private int maxEntries = 1000;
 
     public Simulation() {
         pool = new Pool(this);
@@ -66,7 +68,7 @@ public class Simulation implements Runnable, Serializable {
             for(int i = 0; i<10; i++) {
                 randomAction();
             }
-            currentDate.plusDays(1);
+            currentDate = currentDate.plusDays(1);
             if(currentDate.getDayOfMonth() == 1) {
                 monthlyCheck();
             }
@@ -84,6 +86,7 @@ public class Simulation implements Runnable, Serializable {
 
     private void randomAction() {
         int choice = new Random().nextInt(10);
+        if(pool.isEmpty()) choice = new Random().nextInt(3);
         switch (choice)
         {
             case 0:
@@ -116,6 +119,24 @@ public class Simulation implements Runnable, Serializable {
         }while(existAccount(tempID));
         temp.setId(tempID);
         accounts.add(temp);
+        temp.run();
+    }
+
+    public void createDistributor(String name, String psswd, String email, BigDecimal payment, int account) {
+        Random generator = new Random();
+        Distributor temp = new Distributor(this);
+        temp.setUsername(name);
+        temp.setPasswordHash(psswd);
+        temp.setEmail(email);
+        temp.setAccountNumber(account);
+        temp.setMonthlyCost(payment);
+        int tempID;
+        do {
+            tempID = generator.nextInt(maxUsers*10);
+        }while(existAccount(tempID));
+        temp.setId(tempID);
+        accounts.add(temp);
+        temp.run();
     }
 
     private void createRandomUser() {
@@ -188,5 +209,49 @@ public class Simulation implements Runnable, Serializable {
     public boolean existAccount(int id)
     {
         return accounts.stream().anyMatch(x -> x.getId() == id);
+    }
+
+    public Pool getPool() {
+        return pool;
+    }
+
+    public void setPool(Pool pool) {
+        this.pool = pool;
+    }
+
+    public void setAccounts(ArrayList<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public void setTierCosts(ArrayList<BigDecimal> tierCosts) {
+        this.tierCosts = tierCosts;
+    }
+
+    public void setDiscounts(ArrayList<Discount> discounts) {
+        this.discounts = discounts;
+    }
+
+    public void setData(Map<LocalDate, BigDecimal> data) {
+        this.data = data;
+    }
+
+    public void setCurrentDate(LocalDate currentDate) {
+        this.currentDate = currentDate;
+    }
+
+    public void setLossCounter(int lossCounter) {
+        this.lossCounter = lossCounter;
+    }
+
+    public void setMaxUsers(int maxUsers) {
+        this.maxUsers = maxUsers;
+    }
+
+    public void setMaxEntries(int maxEntries) {
+        this.maxEntries = maxEntries;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }

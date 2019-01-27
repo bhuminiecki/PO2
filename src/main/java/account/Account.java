@@ -44,8 +44,9 @@ public abstract class Account implements Runnable, Serializable {
      * The constructor.
      */
     public Account(Simulation parent) {
-        // Start of user code constructor for Account)
         super();
+        // Start of user code constructor for Account)
+        parentSimulation = parent;
         // End of user code
     }
 

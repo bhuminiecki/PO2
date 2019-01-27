@@ -1,3 +1,4 @@
+import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import simulation.Simulation;
 
@@ -6,19 +7,24 @@ import java.awt.*;
 
 public class UserController {
 
-    public TextField name;
+    @FXML
+    private TextField uname;
 
-    public TextField password;
+    @FXML
+    private TextField upassword;
 
-    public TextField email;
+    @FXML
+    private TextField uemail;
 
-    public ChoiceBox tier;
+    @FXML
+    private ChoiceBox<Integer> tier;
 
-    public TextField card;
+    @FXML
+    private TextField ucard;
 
     public void add()
     {
-
+        Main.getSimulation().createUser(uname.getText(),upassword.getText(),uemail.getText(),tier.getValue());
     }
 
     public void close()

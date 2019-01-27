@@ -71,7 +71,7 @@ public class User extends Account {
 
     public void watch()
     {
-        Entry wanted = new Movie();
+        Entry wanted = getParentSimulation().getPool().getRandomEntry();
         if(!wanted.getReleaseDate().isBefore(getParentSimulation().getCurrentDate())){
             if(!wanted.canWatchTier(this)) {
                 getParentSimulation().getPaid(getParentSimulation().getSubCost(subscriptionTier));

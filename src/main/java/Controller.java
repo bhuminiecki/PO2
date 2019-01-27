@@ -1,32 +1,55 @@
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Controller {
 
-    public DatePicker date;
+    @FXML
+    private DatePicker date;
 
-    public Label balance;
+    @FXML
+    private Label balance;
 
-    public ProgressIndicator running;
+    @FXML
+    private ProgressIndicator running;
 
-    public ListView<String> entries;
+    @FXML
+    private ListView<String> entries;
 
-    public ListView<String> users;
+    @FXML
+    private ListView<String> users;
 
-    public ListView<String> distributors;
+    @FXML
+    private ListView<String> distributors;
 
-    public TextField base;
+    @FXML
+    private TextField base;
 
-    public TextField family;
+    @FXML
+    private TextField family;
 
-    public TextField premium;
+    @FXML
+    private TextField premium;
 
-    public TextField maxp;
+    @FXML
+    private TextField maxp;
 
-    public TextField maxu;
+    @FXML
+    private TextField maxu;
 
-    public Slider prob;
+    @FXML
+    private Slider prob;
 
     public void startSimulation()
     {
@@ -68,25 +91,75 @@ public class Controller {
 
     }
 
-    public void addEntries()
-    {
-
+    public void addEntries() {
+        try {
+            showEntries(new Stage());
+        } catch(Exception x) {
+            System.out.println(x.toString());
+        }
     }
 
     public void addUsers()
     {
-
+        try {
+            showUser(new Stage());
+        } catch(Exception x) {
+            System.out.println(x.toString());
+        }
     }
 
     public void addDistributors()
     {
-
+        try {
+            showDistributor(new Stage());
+        } catch(Exception x) {
+            System.out.println(x.toString());
+        }
     }
 
     public void saveSettings()
     {
-
-
+        Main.getSimulation().setTierCosts(new ArrayList<>(Arrays.asList(new BigDecimal(0), new BigDecimal(Integer.parseInt(base.getText())), new BigDecimal(Integer.parseInt(family.getText())), new BigDecimal(Integer.parseInt(premium.getText())))));
+        Main.getSimulation().setMaxEntries(Integer.parseInt(maxp.getText()));
+        Main.getSimulation().setMaxUsers(Integer.parseInt(maxu.getText()));
+        Main.getSimulation().setProbability((int) prob.getValue());
     }
 
+
+    /**
+     * Responsible for showing the user popup window
+     * @param user
+     * @throws Exception
+     */
+    public void showUser(Stage user) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("user.fxml"));
+        user.setTitle("NETBLING");
+        user.setScene(new Scene(root, 540, 485));
+        user.show();
+    }
+
+    /**
+     * Responsible for showing the distributor popup window
+     * @param distributor
+     * @throws Exception
+     */
+    public void showDistributor(Stage distributor) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("distributor.fxml"));
+        distributor.setTitle("NETBLING");
+        distributor.setScene(new Scene(root, 540, 485));
+        distributor.show();
+    }
+
+
+    /**
+     * Responsible for showing the entries popup window
+     * @param entries
+     * @throws Exception
+     */
+    public void showEntries(Stage entries) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("entry.fxml"));
+        entries.setTitle("NETBLING");
+        entries.setScene(new Scene(root, 540, 485));
+        entries.show();
+    }
 }

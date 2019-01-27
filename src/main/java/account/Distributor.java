@@ -74,4 +74,16 @@ public class Distributor extends Account {
             }
         }
     }
+
+    public void setMonthlyCost(BigDecimal monthlyCost) {
+        this.monthlyCost = monthlyCost;
+    }
+
+    public void setGotPaid(boolean gotPaid) {
+        this.gotPaid = gotPaid;
+    }
+
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
 }

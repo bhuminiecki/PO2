@@ -1,20 +1,28 @@
+import javafx.fxml.FXML;
+
 import java.awt.*;
+import java.math.BigDecimal;
 
 public class DistributorController {
 
-    public TextField name;
+    @FXML
+    private TextField name;
 
-    public TextField password;
+    @FXML
+    private TextField password;
 
-    public TextField email;
+    @FXML
+    private TextField email;
 
-    public TextField payment;
+    @FXML
+    private TextField payment;
 
-    public TextField account;
+    @FXML
+    private TextField account;
 
     public void add()
     {
-
+        Main.getSimulation().createDistributor(name.getText(),password.getText(),email.getText(), new BigDecimal(Double.parseDouble(payment.getText())),Integer.parseInt(account.getText()));
     }
 
     public void close()

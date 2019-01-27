@@ -4,6 +4,7 @@ import storage.Actor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import account.User;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -74,4 +75,10 @@ public class Movie extends Entry {
         return this.actors;
     }
 
+    public boolean canWatchTier(User user) {
+        if(user.getSubscriptionTier()>=subscriptionTier) {
+            return true;
+        }
+        return false;
+    }
 }

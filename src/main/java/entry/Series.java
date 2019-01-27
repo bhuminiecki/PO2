@@ -1,5 +1,6 @@
 package entry;
 
+import account.User;
 import storage.Actor;
 
 import java.util.ArrayList;
@@ -94,5 +95,10 @@ public class Series extends Entry {
         return this.actors;
     }
 
-
+    public boolean canWatchTier(User user) {
+        if(user.getSubscriptionTier()>=subscriptionTier) {
+            return true;
+        }
+        return false;
+    }
 }

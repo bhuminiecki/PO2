@@ -4,6 +4,7 @@ import simulation.Simulation;
 
 import java.math.BigDecimal;
 import java.util.Random;
+import entry.*;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -70,7 +71,12 @@ public class User extends Account {
 
     public void watch()
     {
-
+        Entry wanted = new Movie();
+        if(!wanted.getReleaseDate().isBefore(getParentSimulation().getCurrentDate())){
+            if(!wanted.canWatchTier(this)) {
+                getParentSimulation().getPaid(getParentSimulation().getSubCost(subscriptionTier));
+            }
+        }
     }
 
     public void run() {

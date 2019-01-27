@@ -3,6 +3,8 @@ package entry;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import account.User;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -138,5 +140,9 @@ public abstract class Entry implements Serializable {
 
     public void setDiscount(BigDecimal discount) {
         this.discount = discount;
+    }
+
+    public boolean canWatchTier(User user) {
+        return false;
     }
 }

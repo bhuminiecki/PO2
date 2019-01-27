@@ -17,6 +17,8 @@ public class Distributor extends Account {
      */
     private BigDecimal monthlyCost;
 
+    private boolean gotPaid = false;
+
     /**
      * Description of the property accountNumber.
      */
@@ -63,7 +65,12 @@ public class Distributor extends Account {
         {
             if(super.getParentSimulation().getCurrentDate().getDayOfMonth() == 1)
             {
-                super.getParentSimulation().pay(monthlyCost);
+                if(!gotPaid){
+                    super.getParentSimulation().pay(monthlyCost);
+                    gotPaid = true;
+                }
+            } else {
+                gotPaid = false;
             }
         }
     }

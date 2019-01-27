@@ -11,44 +11,11 @@ import java.math.BigDecimal;
  * @author Wombat
  */
 public class Event extends Entry {
-    /**
-     * Description of the property discount.
-     */
-    private BigDecimal discount = null;
-
-    // Start of user code (user defined attributes for Event)
-
-    // End of user code
 
     /**
      * The constructor.
      */
     public Event() {
-        // Start of user code constructor for Event)
         super();
-        // End of user code
-    }
-
-    // Start of user code (user defined methods for Event)
-
-    // End of user code
-
-    void setDiscount(BigDecimal dc)
-    {
-        discount = dc;
-    }
-
-    /**
-     * Returns discount.
-     *
-     * @return discount
-     */
-    public BigDecimal getDiscount() {
-        return this.discount;
-    }
-
-    public BigDecimal getPrice()
-    {
-        return super.getPrice().multiply(this.discount);
     }
 }

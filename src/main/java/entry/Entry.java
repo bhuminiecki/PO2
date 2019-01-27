@@ -24,6 +24,11 @@ public abstract class Entry implements Serializable {
     private String description = null;
 
     /**
+     * Description of the property discount.
+     */
+    private BigDecimal discount = new BigDecimal(0);
+
+    /**
      * Description of the property releaseDate.
      */
     private LocalDate releaseDate = null;
@@ -120,6 +125,18 @@ public abstract class Entry implements Serializable {
      *
      * @return price
      */
-    public BigDecimal getPrice() { return this.price; }
+    public BigDecimal getPrice() { return this.price.multiply(new BigDecimal(1).subtract(discount)); }
 
+    /**
+     * Returns discount.
+     *
+     * @return discount
+     */
+    public BigDecimal getDiscount() {
+        return this.discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
 }

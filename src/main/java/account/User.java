@@ -3,6 +3,7 @@ package account;
 import simulation.Simulation;
 
 import java.math.BigDecimal;
+import java.util.Random;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -18,6 +19,7 @@ public class User extends Account {
      */
     private int subscriptionTier;
 
+    private boolean paid = false;
     /**
      * Description of the property cardNumber.
      */
@@ -44,6 +46,10 @@ public class User extends Account {
         this.subscriptionTier = subscriptionTier;
     }
 
+    public BigDecimal monthlyPayment() {
+        return super.getParentSimulation().getSubCost(subscriptionTier);
+    }
+
     /**
      * Returns subscriptionTier.
      *
@@ -68,8 +74,21 @@ public class User extends Account {
     }
 
     public void run() {
+        Random generator = new Random();
         while(super.getParentSimulation().isRun()) {
-
+            if(super.getParentSimulation().getCurrentDate().getDayOfMonth()==1)
+            {
+                if(!paid){
+                    super.getParentSimulation().getPaid(monthlyPayment());
+                    paid = true;
+                }
+            } else {
+                paid = false;
+            }
+            if(generator.nextInt(getParentSimulation().getProbability()) == 0)
+            {
+                watch();
+            }
         }
     }
 }

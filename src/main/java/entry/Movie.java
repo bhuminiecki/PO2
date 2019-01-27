@@ -18,10 +18,6 @@ public class Movie extends Entry {
      * Description of the property genre.
      */
     private String genre;
-    /**
-     * Description of the property discount.
-     */
-    private BigDecimal discount;
 
     /**
      * Description of the property subscriptionTier.
@@ -59,14 +55,6 @@ public class Movie extends Entry {
         return this.genre;
     }
 
-    /**
-     * Returns discount.
-     *
-     * @return discount
-     */
-    public BigDecimal getDiscount() {
-        return this.discount;
-    }
 
     /**
      * Returns subscriptionTier.
@@ -84,11 +72,6 @@ public class Movie extends Entry {
      */
     public ArrayList<Actor> getActors() {
         return this.actors;
-    }
-
-    public BigDecimal getPrice()
-    {
-        return super.getPrice().multiply(this.discount);
     }
 
 }

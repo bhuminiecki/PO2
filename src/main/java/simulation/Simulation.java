@@ -1,7 +1,9 @@
 package simulation;
 
 import account.*;
+import entry.Discount;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import storage.Pool;
 
 import java.io.Serializable;
@@ -20,11 +22,17 @@ public class Simulation implements Runnable, Serializable {
 
     private ArrayList<Account> accounts = new ArrayList<Account>();
 
+    private ArrayList<BigDecimal> tierCosts = new ArrayList<BigDecimal>();
+
+    private ArrayList<Discount> discounts = new ArrayList<Discount>();
+
     private LocalDate startDate;
 
     private LocalDate currentDate;
 
     private int lossCounter = 0;
+
+    private int probability;
 
     private volatile BigDecimal balance;
     /**
@@ -35,6 +43,9 @@ public class Simulation implements Runnable, Serializable {
     public void run() {
         Timer time;
         for(Account temp : accounts){
+            temp.run();
+        }
+        for(Discount temp : discounts){
             temp.run();
         }
         run = true;
@@ -49,6 +60,7 @@ public class Simulation implements Runnable, Serializable {
         }
     }
 
+    @NotNull
     @Contract(" -> new")
     private String getRandomString() {
         byte[] array = new byte[8];
@@ -107,6 +119,11 @@ public class Simulation implements Runnable, Serializable {
 
     }
 
+    public BigDecimal getSubCost(int tier) {
+        return tierCosts.get(tier);
+    }
+
+
     public void getPaid(BigDecimal ammount) {
         balance.add(ammount);
     }
@@ -117,5 +134,13 @@ public class Simulation implements Runnable, Serializable {
 
     public LocalDate getCurrentDate() {
         return currentDate;
+    }
+
+    public int getProbability() {
+        return probability;
+    }
+
+    public void setProbability(int probability) {
+        this.probability = probability;
     }
 }

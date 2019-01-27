@@ -40,10 +40,6 @@ public abstract class Account implements Runnable, Serializable {
      */
     private int id;
 
-    // Start of user code (user defined attributes for Account)
-
-    // End of user code
-
     /**
      * The constructor.
      */

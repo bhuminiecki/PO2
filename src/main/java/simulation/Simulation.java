@@ -1,7 +1,7 @@
 package simulation;
 
 import account.*;
-import entry.Discount;
+import entry.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import storage.Pool;
@@ -34,7 +34,7 @@ public class Simulation implements Runnable, Serializable {
 
     private int probability;
 
-    private volatile BigDecimal balance;
+    private volatile BigDecimal balance = new BigDecimal(0);
     /**
      * Metoda run jest główną pętlą symulacji
      * Program wykonuje 10 czynności dziennie
@@ -48,6 +48,7 @@ public class Simulation implements Runnable, Serializable {
         for(Discount temp : discounts){
             temp.run();
         }
+        currentDate=startDate;
         run = true;
         while(run) {
             for(int i = 0; i<10; i++) {
@@ -58,6 +59,7 @@ public class Simulation implements Runnable, Serializable {
                 monthlyCheck();
             }
         }
+
     }
 
     @NotNull
@@ -113,11 +115,11 @@ public class Simulation implements Runnable, Serializable {
 
 
     public void getPaid(BigDecimal ammount) {
-        balance.add(ammount);
+        balance = balance.add(ammount);
     }
 
     public void pay(BigDecimal ammount) {
-        balance.subtract(ammount);
+         balance = balance.subtract(ammount);
     }
 
     public LocalDate getCurrentDate() {
@@ -130,5 +132,14 @@ public class Simulation implements Runnable, Serializable {
 
     public void setProbability(int probability) {
         this.probability = probability;
+    }
+
+    public void addEntry(Entry newEntry)
+    {
+        pool.addEntry(newEntry);
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 }

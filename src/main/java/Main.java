@@ -8,9 +8,9 @@ import java.io.*;
 
 public class Main extends Application {
 
-    private Simulation simulation = new Simulation();
+    private static Simulation simulation = new Simulation();
 
-    private final String fpath = "sim.ser";
+    private static final String fpath = "sim.ser";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -20,7 +20,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public void saveSim() throws Exception{
+    public static void saveSim() throws Exception{
         ObjectOutputStream out = new ObjectOutputStream(
                 new BufferedOutputStream(
                         new FileOutputStream(fpath)));
@@ -28,7 +28,7 @@ public class Main extends Application {
         out.close();
     }
 
-    public void loadSim() throws Exception{
+    public static void loadSim() throws Exception{
         ObjectInputStream in = new ObjectInputStream(
                 new BufferedInputStream(
                         new FileInputStream(fpath)));
@@ -36,7 +36,16 @@ public class Main extends Application {
         in.close();
     }
 
+    public static void reset() {
+        simulation = new Simulation();
+    }
+
+
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static Simulation getSimulation() {
+        return simulation;
     }
 }

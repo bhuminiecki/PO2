@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="UserController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <TextField fx:id="name" layoutX="145.0" layoutY="37.0" />
+            <TextField fx:id="password" layoutX="145.0" layoutY="76.0" />
+            <TextField fx:id="email" layoutX="145.0" layoutY="120.0" />
+            <ChoiceBox fx:id="tier" layoutX="144.0" layoutY="188.0" prefHeight="25.0" prefWidth="74.0" />
+            <TextField fx:id="card" layoutX="145.0" layoutY="229.0" prefHeight="25.0" prefWidth="283.0" />
+            <Label layoutX="47.0" layoutY="41.0" text="Name" />
+            <Label layoutX="47.0" layoutY="80.0" text="Password" />
+            <Label layoutX="47.0" layoutY="120.0" text="email" />
+            <Label layoutX="47.0" layoutY="192.0" text="Tier" />
+            <Label layoutX="47.0" layoutY="233.0" text="Card number" />
+            <Button layoutX="316.0" layoutY="307.0" mnemonicParsing="false" onAction="#add" prefHeight="50.0" prefWidth="84.0" text="ADD" />
+            <Button layoutX="422.0" layoutY="307.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="84.0" text="CLOSE" />
+         </children></Pane>
+   </children>
 </AnchorPane>

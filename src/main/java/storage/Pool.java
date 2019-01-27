@@ -17,7 +17,7 @@ public class Pool implements Serializable {
     /**
      * Description of the property programs.
      */
-    private ArrayList<Entry> programs = new ArrayList<Entry>();
+    private ArrayList<Entry> entries = new ArrayList<Entry>();
 
     /**
      * Description of the property favouriteTags.
@@ -37,22 +37,13 @@ public class Pool implements Serializable {
         // End of user code
     }
 
-    /**
-     * Description of the method addSeries.
-     *
-     * @param name
-     */
-    public void addSeries(String name) {
-        // Start of user code for method addSeries
-        // End of user code
+
+    public void addEntry(Entry entry) {
+        entries.add(entry);
     }
 
-    /**
-     * Description of the method removeSeries.
-     *
-     * @param name
-     */
-    public void removeSeries(String name) {
+
+    public void removeSeries(int id) {
         // Start of user code for method removeSeries
         // End of user code
     }
@@ -84,8 +75,8 @@ public class Pool implements Serializable {
      *
      * @return programs
      */
-    public ArrayList<Entry> getPrograms() {
-        return this.programs;
+    public ArrayList<Entry> getEntries() {
+        return this.entries;
     }
 
     /**

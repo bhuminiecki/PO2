@@ -1,19 +1,21 @@
-import account.*;
+import account.Account;
+import account.Distributor;
+import account.User;
 import entry.Entry;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 public class Controller {
 
@@ -52,6 +54,9 @@ public class Controller {
 
     @FXML
     private Slider prob;
+
+    @FXML
+    private LineChart<LocalDate, BigDecimal> chart;
 
     public void startSimulation()
     {
@@ -182,5 +187,15 @@ public class Controller {
         entries.setTitle("Entries");
         entries.setScene(new Scene(root, 600, 400));
         entries.show();
+    }
+
+    public void draw() {
+        Map<LocalDate, BigDecimal> data = Main.getSimulation().getData();
+        chart.getData().clear();
+        XYChart.Series series = new XYChart.Series();
+        for(Map.Entry<LocalDate, BigDecimal> temp : data.entrySet()) {
+            series.getData().add(new XYChart.Data<>(temp.getKey(),temp.getValue()));
+        }
+        chart.getData().add(series);
     }
 }

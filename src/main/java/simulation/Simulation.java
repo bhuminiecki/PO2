@@ -269,4 +269,8 @@ public class Simulation implements Runnable, Serializable {
     public ArrayList<Account> getAccounts() {
         return accounts;
     }
+
+    public Map<LocalDate, BigDecimal> getData() {
+        return data;
+    }
 }

@@ -9,7 +9,6 @@ import java.io.*;
 
 /*
     TODO:
-        -plot
         -somehow controller methods don't get called
         -make it work somehow
 */

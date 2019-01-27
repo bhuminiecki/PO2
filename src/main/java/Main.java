@@ -7,10 +7,11 @@ import org.jetbrains.annotations.Contract;
 import simulation.Simulation;
 import java.io.*;
 
-/* TODO:
-    -thread synchronization
-    -plot
-    -make it work somehow
+/*
+    TODO:
+        -plot
+        -somehow controller methods don't get called
+        -make it work somehow
 */
 public class Main extends Application {
 

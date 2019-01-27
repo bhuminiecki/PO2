@@ -10,7 +10,7 @@ public class Discount implements Runnable, Serializable {
 
     private BigDecimal value;
 
-    private Simulation parentSimulation;
+    private final Simulation parentSimulation;
 
     private LocalDate startDate;
 
@@ -27,9 +27,11 @@ public class Discount implements Runnable, Serializable {
     }
 
     public void run() {
-        while(parentSimulation.getCurrentDate().isBefore(startDate));
-        discountedEntry.setDiscount(value);
-        while(parentSimulation.getCurrentDate().isBefore(endDate));
-        discountedEntry.setDiscount(new BigDecimal(0));
+        synchronized (parentSimulation) {
+            while (parentSimulation.getCurrentDate().isBefore(startDate)) ;
+            discountedEntry.setDiscount(value);
+            while (parentSimulation.getCurrentDate().isBefore(endDate)) ;
+            discountedEntry.setDiscount(new BigDecimal(0));
+        }
     }
 }

@@ -90,24 +90,22 @@ public class Controller {
 
     public void refresh()
     {
-        entries.getItems().clear();
-        for(Entry temp : Main.getSimulation().getPool().getEntries()){
-            entries.getItems().add(temp.toString());
-        }
-        users.getItems().clear();
-        for(Account temp : Main.getSimulation().getAccounts())
-        {
-            if(temp instanceof User)
-            {
-                users.getItems().add(temp.getUsername());
+        synchronized (Main.getSimulation()) {
+            entries.getItems().clear();
+            for (Entry temp : Main.getSimulation().getPool().getEntries()) {
+                entries.getItems().add(temp.toString());
             }
-        }
-        distributors.getItems().clear();
-        for(Account temp : Main.getSimulation().getAccounts())
-        {
-            if(temp instanceof Distributor)
-            {
-                distributors.getItems().add(temp.getUsername());
+            users.getItems().clear();
+            for (Account temp : Main.getSimulation().getAccounts()) {
+                if (temp instanceof User) {
+                    users.getItems().add(temp.getUsername());
+                }
+            }
+            distributors.getItems().clear();
+            for (Account temp : Main.getSimulation().getAccounts()) {
+                if (temp instanceof Distributor) {
+                    distributors.getItems().add(temp.getUsername());
+                }
             }
         }
     }
@@ -140,10 +138,12 @@ public class Controller {
 
     public void saveSettings()
     {
-        Main.getSimulation().setTierCosts(new ArrayList<>(Arrays.asList(new BigDecimal(0), new BigDecimal(Integer.parseInt(base.getText())), new BigDecimal(Integer.parseInt(family.getText())), new BigDecimal(Integer.parseInt(premium.getText())))));
-        Main.getSimulation().setMaxEntries(Integer.parseInt(maxp.getText()));
-        Main.getSimulation().setMaxUsers(Integer.parseInt(maxu.getText()));
-        Main.getSimulation().setProbability((int) prob.getValue());
+        synchronized (Main.getSimulation()) {
+            Main.getSimulation().setTierCosts(new ArrayList<>(Arrays.asList(new BigDecimal(0), new BigDecimal(Integer.parseInt(base.getText())), new BigDecimal(Integer.parseInt(family.getText())), new BigDecimal(Integer.parseInt(premium.getText())))));
+            Main.getSimulation().setMaxEntries(Integer.parseInt(maxp.getText()));
+            Main.getSimulation().setMaxUsers(Integer.parseInt(maxu.getText()));
+            Main.getSimulation().setProbability((int) prob.getValue());
+        }
     }
 
 

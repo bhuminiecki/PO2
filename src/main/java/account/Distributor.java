@@ -61,16 +61,16 @@ public class Distributor extends Account {
 
     public void run()
     {
-        while(super.getParentSimulation().isRun())
-        {
-            if(super.getParentSimulation().getCurrentDate().getDayOfMonth() == 1)
-            {
-                if(!gotPaid){
-                    super.getParentSimulation().pay(monthlyCost);
-                    gotPaid = true;
+        synchronized (getParentSimulation()) {
+            while (super.getParentSimulation().isRun()) {
+                if (super.getParentSimulation().getCurrentDate().getDayOfMonth() == 1) {
+                    if (!gotPaid) {
+                        super.getParentSimulation().pay(monthlyCost);
+                        gotPaid = true;
+                    }
+                } else {
+                    gotPaid = false;
                 }
-            } else {
-                gotPaid = false;
             }
         }
     }

@@ -22,12 +22,14 @@ public class DistributorController {
 
     public void add()
     {
-        Main.getSimulation().createDistributor(dname.getText(),dpassword.getText(),demail.getText(), new BigDecimal(Double.parseDouble(dpayment.getText())),Integer.parseInt(daccount.getText()));
-        dname.setText("");
-        dpassword.setText("");
-        demail.setText("");
-        dpayment.setText("");
-        daccount.setText("");
+        synchronized (Main.getSimulation()) {
+            Main.getSimulation().createDistributor(dname.getText(), dpassword.getText(), demail.getText(), new BigDecimal(Double.parseDouble(dpayment.getText())), Integer.parseInt(daccount.getText()));
+            dname.setText("");
+            dpassword.setText("");
+            demail.setText("");
+            dpayment.setText("");
+            daccount.setText("");
+        }
     }
 
     public void close()

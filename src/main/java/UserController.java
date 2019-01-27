@@ -24,11 +24,13 @@ public class UserController {
 
     public void add()
     {
-        Main.getSimulation().createUser(uname.getText(),upassword.getText(),uemail.getText(),tier.getValue());
-        uname.setText("");
-        upassword.setText("");
-        uemail.setText("");
-        ucard.setText("");
+        synchronized (Main.getSimulation()) {
+            Main.getSimulation().createUser(uname.getText(), upassword.getText(), uemail.getText(), tier.getValue());
+            uname.setText("");
+            upassword.setText("");
+            uemail.setText("");
+            ucard.setText("");
+        }
     }
 
     public void close()

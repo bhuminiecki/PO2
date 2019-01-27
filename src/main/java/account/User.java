@@ -71,29 +71,31 @@ public class User extends Account {
 
     public void watch()
     {
-        Entry wanted = getParentSimulation().getPool().getRandomEntry();
-        if(!wanted.getReleaseDate().isBefore(getParentSimulation().getCurrentDate())){
-            if(!wanted.canWatchTier(this)) {
-                getParentSimulation().getPaid(getParentSimulation().getSubCost(subscriptionTier));
+        synchronized (getParentSimulation().getPool()) {
+            Entry wanted = getParentSimulation().getPool().getRandomEntry();
+            if (!wanted.getReleaseDate().isBefore(getParentSimulation().getCurrentDate())) {
+                if (!wanted.canWatchTier(this)) {
+                    getParentSimulation().getPaid(getParentSimulation().getSubCost(subscriptionTier));
+                }
             }
         }
     }
 
     public void run() {
         Random generator = new Random();
-        while(super.getParentSimulation().isRun()) {
-            if(super.getParentSimulation().getCurrentDate().getDayOfMonth()==1)
-            {
-                if(!paid){
-                    super.getParentSimulation().getPaid(monthlyPayment());
-                    paid = true;
+        synchronized (getParentSimulation()) {
+            while (super.getParentSimulation().isRun()) {
+                if (super.getParentSimulation().getCurrentDate().getDayOfMonth() == 1) {
+                    if (!paid) {
+                        super.getParentSimulation().getPaid(monthlyPayment());
+                        paid = true;
+                    }
+                } else {
+                    paid = false;
                 }
-            } else {
-                paid = false;
-            }
-            if(generator.nextInt(getParentSimulation().getProbability()) == 0)
-            {
-                watch();
+                if (generator.nextInt(getParentSimulation().getProbability()) == 0) {
+                    watch();
+                }
             }
         }
     }

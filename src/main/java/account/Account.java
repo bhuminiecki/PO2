@@ -1,5 +1,9 @@
 package account;
 
+import simulation.Simulation;
+
+import java.io.Serializable;
+
 // Start of user code (user defined imports)
 
 // End of user code
@@ -9,7 +13,13 @@ package account;
  *
  * @author Wombat
  */
-public class Account {
+public abstract class Account implements Runnable, Serializable {
+
+    /**
+     * parentSimulation is the simulation the account belongs to
+     */
+    private Simulation parentSimulation;
+
     /**
      * Description of the property username.
      */
@@ -37,7 +47,7 @@ public class Account {
     /**
      * The constructor.
      */
-    public Account() {
+    public Account(Simulation parent) {
         // Start of user code constructor for Account)
         super();
         // End of user code
@@ -68,6 +78,10 @@ public class Account {
      */
     public String getPasswordHash() {
         return this.passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     /**
@@ -106,5 +120,7 @@ public class Account {
         this.id = newId;
     }
 
-
+    public Simulation getParentSimulation() {
+        return parentSimulation;
+    }
 }

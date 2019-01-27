@@ -1,6 +1,7 @@
 package account;
 
 import java.math.BigDecimal;
+import simulation.Simulation;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -28,9 +29,9 @@ public class Distributor extends Account {
     /**
      * The constructor.
      */
-    public Distributor() {
+    public Distributor(Simulation parent) {
         // Start of user code constructor for Distributor)
-        super();
+        super(parent);
         // End of user code
     }
 
@@ -56,4 +57,14 @@ public class Distributor extends Account {
         return this.accountNumber;
     }
 
+    public void run()
+    {
+        while(super.getParentSimulation().isRun())
+        {
+            if(super.getParentSimulation().getCurrentDate().getDayOfMonth() == 1)
+            {
+                super.getParentSimulation().pay(monthlyCost);
+            }
+        }
+    }
 }

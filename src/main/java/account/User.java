@@ -1,5 +1,8 @@
 package account;
 
+import simulation.Simulation;
+
+import java.math.BigDecimal;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -27,15 +30,19 @@ public class User extends Account {
     /**
      * The constructor.
      */
-    public User() {
+    public User(Simulation parent) {
         // Start of user code constructor for User)
-        super();
+        super(parent);
         // End of user code
     }
 
     // Start of user code (user defined methods for User)
 
     // End of user code
+
+    public void setSubscriptionTier(int subscriptionTier) {
+        this.subscriptionTier = subscriptionTier;
+    }
 
     /**
      * Returns subscriptionTier.
@@ -55,4 +62,14 @@ public class User extends Account {
         return this.cardNumber;
     }
 
+    public void watch()
+    {
+
+    }
+
+    public void run() {
+        while(super.getParentSimulation().isRun()) {
+
+        }
+    }
 }

@@ -4,19 +4,21 @@ package storage;
 
 // End of user code
 
+import java.io.Serializable;
+
 /**
- * Description of Actor.
+ * Actor class represents an actor / actress.
  *
  * @author Wombat
  */
-public class Actor {
+public class Actor implements Serializable {
     /**
-     * Description of the property name.
+     * Name of the actor.
      */
     private String name;
 
     /**
-     * Description of the property surname.
+     * Surname of the actor.
      */
     private String surname;
 
@@ -32,10 +34,10 @@ public class Actor {
     /**
      * The constructor.
      */
-    public Actor() {
-        // Start of user code constructor for Actor)
-        super();
-        // End of user code
+    public Actor(String name, String surname, int age) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
     }
 
     // Start of user code (user defined methods for Actor)

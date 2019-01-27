@@ -1,7 +1,8 @@
 package entry;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -11,7 +12,7 @@ import java.util.Date;
  *
  * @author Wombat
  */
-public abstract class Entry {
+public abstract class Entry implements Serializable {
     /**
      * Description of the property ratingIMDb.
      */
@@ -25,7 +26,7 @@ public abstract class Entry {
     /**
      * Description of the property releaseDate.
      */
-    private Date releaseDate = null;
+    private LocalDate releaseDate = null;
 
     /**
      * Description of the property lenght.
@@ -101,7 +102,7 @@ public abstract class Entry {
      *
      * @return releaseDate
      */
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return this.releaseDate;
     }
 
@@ -119,8 +120,6 @@ public abstract class Entry {
      *
      * @return price
      */
-    public BigDecimal getPrice() {
-        return this.price;
-    }
+    public BigDecimal getPrice() { return this.price; }
 
 }

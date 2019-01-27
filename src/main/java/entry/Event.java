@@ -33,6 +33,11 @@ public class Event extends Entry {
 
     // End of user code
 
+    void setDiscount(BigDecimal dc)
+    {
+        discount = dc;
+    }
+
     /**
      * Returns discount.
      *
@@ -42,4 +47,8 @@ public class Event extends Entry {
         return this.discount;
     }
 
+    public BigDecimal getPrice()
+    {
+        return super.getPrice().multiply(this.discount);
+    }
 }

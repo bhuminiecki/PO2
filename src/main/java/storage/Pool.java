@@ -2,6 +2,7 @@ package storage;
 
 import entry.Entry;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 // Start of user code (user defined imports)
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Wombat
  */
-public class Pool {
+public class Pool implements Serializable {
     /**
      * Description of the property programs.
      */

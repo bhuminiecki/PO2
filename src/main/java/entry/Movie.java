@@ -86,4 +86,9 @@ public class Movie extends Entry {
         return this.actors;
     }
 
+    public BigDecimal getPrice()
+    {
+        return super.getPrice().multiply(this.discount);
+    }
+
 }

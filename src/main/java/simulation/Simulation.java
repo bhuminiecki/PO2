@@ -107,18 +107,6 @@ public class Simulation implements Runnable, Serializable {
         return run;
     }
 
-    public void loadPool() {
-
-    }
-
-    public void resetPool() {
-
-    }
-
-    public void savePool() {
-
-    }
-
     public BigDecimal getSubCost(int tier) {
         return tierCosts.get(tier);
     }

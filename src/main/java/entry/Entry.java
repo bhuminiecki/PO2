@@ -1,10 +1,10 @@
 package entry;
 
+import account.User;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import account.User;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -97,6 +97,10 @@ public abstract class Entry implements Serializable {
         return this.ratingIMDb;
     }
 
+    public void setRatingIMDb(double ratingIMDb) {
+        this.ratingIMDb = ratingIMDb;
+    }
+
     /**
      * Returns description.
      *
@@ -104,6 +108,10 @@ public abstract class Entry implements Serializable {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -115,6 +123,10 @@ public abstract class Entry implements Serializable {
         return this.releaseDate;
     }
 
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
     /**
      * Returns length.
      *
@@ -124,12 +136,22 @@ public abstract class Entry implements Serializable {
         return this.length;
     }
 
+    public void setLength(double length) {
+        this.length = length;
+    }
+
     /**
      * Returns price.
      *
      * @return price
      */
-    public BigDecimal getPrice() { return this.price.multiply(new BigDecimal(1).subtract(discount)); }
+    public BigDecimal getPrice() {
+        return this.price.multiply(new BigDecimal(1).subtract(discount));
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
     /**
      * Returns discount.
@@ -148,36 +170,15 @@ public abstract class Entry implements Serializable {
         return false;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setRatingIMDb(double ratingIMDb) {
-        this.ratingIMDb = ratingIMDb;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setReleaseDate(LocalDate releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public void setLength(double length) {
-        this.length = length;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String toString()
-    {
-        return title+"- cena:"+price;
+    public String toString() {
+        return title + "- cena:" + price;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

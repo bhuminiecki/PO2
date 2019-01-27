@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Contract;
 import simulation.Simulation;
+
 import java.io.*;
 
 /*
@@ -14,28 +15,15 @@ import java.io.*;
 */
 public class Main extends Application {
 
-    private static Simulation simulation = new Simulation();
-
     private static final String fpath = "sim.ser";
-
-    /**
-     * Starts the application with primary stage
-     * @param primaryStage - primary stage of the application
-     * @throws Exception
-     */
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-        primaryStage.setTitle("NETBLING");
-        primaryStage.setScene(new Scene(root, 540, 485));
-        primaryStage.show();
-    }
+    private static Simulation simulation = new Simulation();
 
     /**
      * Saves the simulation using serialisation
+     *
      * @throws Exception
      */
-    public static void saveSim() throws Exception{
+    public static void saveSim() throws Exception {
         ObjectOutputStream out = new ObjectOutputStream(
                 new BufferedOutputStream(
                         new FileOutputStream(fpath)));
@@ -45,9 +33,10 @@ public class Main extends Application {
 
     /**
      * Loads the simulation from file
+     *
      * @throws Exception
      */
-    public static void loadSim() throws Exception{
+    public static void loadSim() throws Exception {
         ObjectInputStream in = new ObjectInputStream(
                 new BufferedInputStream(
                         new FileInputStream(fpath)));
@@ -66,5 +55,19 @@ public class Main extends Application {
     @Contract(pure = true)
     public static Simulation getSimulation() {
         return simulation;
+    }
+
+    /**
+     * Starts the application with primary stage
+     *
+     * @param primaryStage - primary stage of the application
+     * @throws Exception
+     */
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        primaryStage.setTitle("NETBLING");
+        primaryStage.setScene(new Scene(root, 540, 485));
+        primaryStage.show();
     }
 }

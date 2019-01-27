@@ -58,15 +58,17 @@ public class Controller {
     @FXML
     private LineChart<LocalDate, BigDecimal> chart;
 
-    public void startSimulation()
-    {
+    public void setBalance() {
+        balance.setText(Main.getSimulation().getBalance().toString());
+    }
+
+    public void startSimulation() {
         running.setVisible(true);
         Main.getSimulation().setStartDate(date.getValue());
         Main.getSimulation().run();
     }
 
-    public void stopSimulation()
-    {
+    public void stopSimulation() {
         running.setVisible(false);
         Main.getSimulation().setRun(false);
     }
@@ -74,27 +76,24 @@ public class Controller {
     public void loadSimulation() {
         try {
             Main.loadSim();
-        } catch(Exception a) {
+        } catch (Exception a) {
             System.out.println(a.toString());
         }
     }
 
-    public void saveSimulation()
-    {
+    public void saveSimulation() {
         try {
             Main.saveSim();
-        } catch(Exception a) {
+        } catch (Exception a) {
             System.out.println(a.toString());
         }
     }
 
-    public void resetSimulation()
-    {
+    public void resetSimulation() {
         Main.reset();
     }
 
-    public void refresh()
-    {
+    public void refresh() {
         synchronized (Main.getSimulation()) {
             entries.getItems().clear();
             for (Entry temp : Main.getSimulation().getPool().getEntries()) {
@@ -118,31 +117,28 @@ public class Controller {
     public void addEntries() {
         try {
             showEntries(new Stage());
-        } catch(Exception x) {
+        } catch (Exception x) {
             System.out.println(x.toString());
         }
     }
 
-    public void addUsers()
-    {
+    public void addUsers() {
         try {
             showUser(new Stage());
-        } catch(Exception x) {
+        } catch (Exception x) {
             System.out.println(x.toString());
         }
     }
 
-    public void addDistributors()
-    {
+    public void addDistributors() {
         try {
             showDistributor(new Stage());
-        } catch(Exception x) {
+        } catch (Exception x) {
             System.out.println(x.toString());
         }
     }
 
-    public void saveSettings()
-    {
+    public void saveSettings() {
         synchronized (Main.getSimulation()) {
             Main.getSimulation().setTierCosts(new ArrayList<>(Arrays.asList(new BigDecimal(0), new BigDecimal(Integer.parseInt(base.getText())), new BigDecimal(Integer.parseInt(family.getText())), new BigDecimal(Integer.parseInt(premium.getText())))));
             Main.getSimulation().setMaxEntries(Integer.parseInt(maxp.getText()));
@@ -154,10 +150,11 @@ public class Controller {
 
     /**
      * Responsible for showing the user popup window
+     *
      * @param user
      * @throws Exception
      */
-    public void showUser(Stage user) throws Exception{
+    public void showUser(Stage user) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("user.fxml"));
         user.setTitle("Users");
         user.setScene(new Scene(root, 600, 400));
@@ -166,10 +163,11 @@ public class Controller {
 
     /**
      * Responsible for showing the distributor popup window
+     *
      * @param distributor
      * @throws Exception
      */
-    public void showDistributor(Stage distributor) throws Exception{
+    public void showDistributor(Stage distributor) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("distributor.fxml"));
         distributor.setTitle("Distributors");
         distributor.setScene(new Scene(root, 600, 400));
@@ -179,10 +177,11 @@ public class Controller {
 
     /**
      * Responsible for showing the entries popup window
+     *
      * @param entries
      * @throws Exception
      */
-    public void showEntries(Stage entries) throws Exception{
+    public void showEntries(Stage entries) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("entry.fxml"));
         entries.setTitle("Entries");
         entries.setScene(new Scene(root, 600, 400));
@@ -193,8 +192,8 @@ public class Controller {
         Map<LocalDate, BigDecimal> data = Main.getSimulation().getData();
         chart.getData().clear();
         XYChart.Series series = new XYChart.Series();
-        for(Map.Entry<LocalDate, BigDecimal> temp : data.entrySet()) {
-            series.getData().add(new XYChart.Data<>(temp.getKey(),temp.getValue()));
+        for (Map.Entry<LocalDate, BigDecimal> temp : data.entrySet()) {
+            series.getData().add(new XYChart.Data<>(temp.getKey(), temp.getValue()));
         }
         chart.getData().add(series);
     }

@@ -1,10 +1,10 @@
 package account;
 
+import entry.Entry;
 import simulation.Simulation;
 
 import java.math.BigDecimal;
 import java.util.Random;
-import entry.*;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -43,10 +43,6 @@ public class User extends Account {
 
     // End of user code
 
-    public void setSubscriptionTier(int subscriptionTier) {
-        this.subscriptionTier = subscriptionTier;
-    }
-
     public BigDecimal monthlyPayment() {
         return super.getParentSimulation().getSubCost(subscriptionTier);
     }
@@ -60,6 +56,10 @@ public class User extends Account {
         return this.subscriptionTier;
     }
 
+    public void setSubscriptionTier(int subscriptionTier) {
+        this.subscriptionTier = subscriptionTier;
+    }
+
     /**
      * Returns cardNumber.
      *
@@ -69,8 +69,7 @@ public class User extends Account {
         return this.cardNumber;
     }
 
-    public void watch()
-    {
+    public void watch() {
         synchronized (getParentSimulation().getPool()) {
             Entry wanted = getParentSimulation().getPool().getRandomEntry();
             if (!wanted.getReleaseDate().isBefore(getParentSimulation().getCurrentDate())) {

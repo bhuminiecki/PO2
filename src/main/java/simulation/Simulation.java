@@ -1,17 +1,19 @@
 package simulation;
 
-import account.*;
-import entry.*;
+import account.Account;
+import account.Distributor;
+import account.User;
+import entry.Discount;
+import entry.Entry;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.omg.CORBA.LongLongSeqHelper;
 import storage.Pool;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.*;
-import java.nio.charset.Charset;
 
 public class Simulation implements Runnable, Serializable {
 
@@ -23,10 +25,10 @@ public class Simulation implements Runnable, Serializable {
 
     private ArrayList<BigDecimal> tierCosts =
             new ArrayList<BigDecimal>(Arrays.asList(
-                new BigDecimal(0),
-                new BigDecimal(10),
-                new BigDecimal(20),
-                new BigDecimal(50)));
+                    new BigDecimal(0),
+                    new BigDecimal(10),
+                    new BigDecimal(20),
+                    new BigDecimal(50)));
 
     private ArrayList<Discount> discounts = new ArrayList<Discount>();
 
@@ -43,36 +45,10 @@ public class Simulation implements Runnable, Serializable {
     private int maxUsers = 100;
 
     private int maxEntries = 1000;
+    private volatile BigDecimal balance = new BigDecimal(0);
 
     public Simulation() {
         pool = new Pool(this);
-    }
-
-    private volatile BigDecimal balance = new BigDecimal(0);
-    /**
-     * Metoda run jest główną pętlą symulacji
-     * Program wykonuje 10 czynności dziennie
-     * Ilość ta jest spowodowane potrzebą zapewnienia szybkiego działania symulacji
-     */
-    public void run() {
-        Timer time;
-        for(Account temp : accounts){
-            temp.run();
-        }
-        for(Discount temp : discounts){
-            temp.run();
-        }
-        currentDate=startDate;
-        run = true;
-        while(run) {
-            for(int i = 0; i<10; i++) {
-                randomAction();
-            }
-            currentDate = currentDate.plusDays(1);
-            if(currentDate.getDayOfMonth() == 1) {
-                monthlyCheck();
-            }
-        }
     }
 
     @NotNull
@@ -83,11 +59,36 @@ public class Simulation implements Runnable, Serializable {
         return new String(array, Charset.forName("UTF-8"));
     }
 
+    /**
+     * Metoda run jest główną pętlą symulacji
+     * Program wykonuje 10 czynności dziennie
+     * Ilość ta jest spowodowane potrzebą zapewnienia szybkiego działania symulacji
+     */
+    public void run() {
+        Timer time;
+        for (Account temp : accounts) {
+            temp.run();
+        }
+        for (Discount temp : discounts) {
+            temp.run();
+        }
+        currentDate = startDate;
+        run = true;
+        while (run) {
+            for (int i = 0; i < 10; i++) {
+                randomAction();
+            }
+            currentDate = currentDate.plusDays(1);
+            if (currentDate.getDayOfMonth() == 1) {
+                monthlyCheck();
+            }
+        }
+    }
+
     private void randomAction() {
         int choice = new Random().nextInt(10);
-        if(pool.isEmpty()) choice = new Random().nextInt(3);
-        switch (choice)
-        {
+        if (pool.isEmpty()) choice = new Random().nextInt(3);
+        switch (choice) {
             case 0:
                 synchronized (pool) {
                     if (pool.sizeOf() < maxEntries)
@@ -108,7 +109,7 @@ public class Simulation implements Runnable, Serializable {
                 break;
             case 3:
                 LocalDate dDate = currentDate.plusDays(new Random().nextInt(100));
-                createDiscount(pool.getRandomEntry(),dDate,dDate.plusDays(new Random().nextInt(20)+20), new BigDecimal( new Random().nextDouble()*0.45+0.05));
+                createDiscount(pool.getRandomEntry(), dDate, dDate.plusDays(new Random().nextInt(20) + 20), new BigDecimal(new Random().nextDouble() * 0.45 + 0.05));
             default:
                 synchronized (this) {
                     if (accounts.size() < maxUsers)
@@ -126,8 +127,8 @@ public class Simulation implements Runnable, Serializable {
         temp.setSubscriptionTier(tier);
         int tempID;
         do {
-            tempID = generator.nextInt(maxUsers*10);
-        }while(existAccount(tempID));
+            tempID = generator.nextInt(maxUsers * 10);
+        } while (existAccount(tempID));
         temp.setId(tempID);
         accounts.add(temp);
         temp.run();
@@ -143,15 +144,15 @@ public class Simulation implements Runnable, Serializable {
         temp.setMonthlyCost(payment);
         int tempID;
         do {
-            tempID = generator.nextInt(maxUsers*10);
-        }while(existAccount(tempID));
+            tempID = generator.nextInt(maxUsers * 10);
+        } while (existAccount(tempID));
         temp.setId(tempID);
         accounts.add(temp);
         temp.run();
     }
 
     private void createRandomUser() {
-        createUser(getRandomString(),getRandomString(),getRandomString(),new Random().nextInt(4));
+        createUser(getRandomString(), getRandomString(), getRandomString(), new Random().nextInt(4));
     }
 
     private void monthlyCheck() {
@@ -160,9 +161,9 @@ public class Simulation implements Runnable, Serializable {
     }
 
     public void checkBalance() {
-        if (balance.compareTo(new BigDecimal(0)) == -1){
+        if (balance.compareTo(new BigDecimal(0)) == -1) {
             lossCounter += 1;
-            if(lossCounter>3){
+            if (lossCounter > 3) {
                 run = false;
             }
         } else {
@@ -170,12 +171,12 @@ public class Simulation implements Runnable, Serializable {
         }
     }
 
-    public void setRun(boolean setVal) {
-        run = setVal;
-    }
-
     public boolean isRun() {
         return run;
+    }
+
+    public void setRun(boolean setVal) {
+        run = setVal;
     }
 
     public BigDecimal getSubCost(int tier) {
@@ -188,11 +189,15 @@ public class Simulation implements Runnable, Serializable {
     }
 
     public void pay(BigDecimal ammount) {
-         balance = balance.subtract(ammount);
+        balance = balance.subtract(ammount);
     }
 
     public LocalDate getCurrentDate() {
         return currentDate;
+    }
+
+    public void setCurrentDate(LocalDate currentDate) {
+        this.currentDate = currentDate;
     }
 
     public int getProbability() {
@@ -203,8 +208,7 @@ public class Simulation implements Runnable, Serializable {
         this.probability = probability;
     }
 
-    public void addEntry(Entry newEntry)
-    {
+    public void addEntry(Entry newEntry) {
         pool.addEntry(newEntry);
     }
 
@@ -212,13 +216,11 @@ public class Simulation implements Runnable, Serializable {
         this.startDate = startDate;
     }
 
-    public void createDiscount(Entry entry, LocalDate start, LocalDate finish, BigDecimal val)
-    {
-        discounts.add(new Discount(val,this, start, finish, entry));
+    public void createDiscount(Entry entry, LocalDate start, LocalDate finish, BigDecimal val) {
+        discounts.add(new Discount(val, this, start, finish, entry));
     }
 
-    public boolean existAccount(int id)
-    {
+    public boolean existAccount(int id) {
         return accounts.stream().anyMatch(x -> x.getId() == id);
     }
 
@@ -230,24 +232,12 @@ public class Simulation implements Runnable, Serializable {
         this.pool = pool;
     }
 
-    public void setAccounts(ArrayList<Account> accounts) {
-        this.accounts = accounts;
-    }
-
     public void setTierCosts(ArrayList<BigDecimal> tierCosts) {
         this.tierCosts = tierCosts;
     }
 
     public void setDiscounts(ArrayList<Discount> discounts) {
         this.discounts = discounts;
-    }
-
-    public void setData(Map<LocalDate, BigDecimal> data) {
-        this.data = data;
-    }
-
-    public void setCurrentDate(LocalDate currentDate) {
-        this.currentDate = currentDate;
     }
 
     public void setLossCounter(int lossCounter) {
@@ -262,15 +252,27 @@ public class Simulation implements Runnable, Serializable {
         this.maxEntries = maxEntries;
     }
 
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
-
     public ArrayList<Account> getAccounts() {
         return accounts;
     }
 
+    public void setAccounts(ArrayList<Account> accounts) {
+        this.accounts = accounts;
+    }
+
     public Map<LocalDate, BigDecimal> getData() {
         return data;
+    }
+
+    public void setData(Map<LocalDate, BigDecimal> data) {
+        this.data = data;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }

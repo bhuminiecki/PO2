@@ -1,82 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EntryController">
-   <children>
-      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Movie">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TextField fx:id="mtitle" layoutX="79.0" layoutY="39.0" />
-                        <TextField fx:id="mgenre" layoutX="79.0" layoutY="81.0" />
-                        <TextField fx:id="mprice" layoutX="79.0" layoutY="124.0" />
-                        <Label layoutX="31.0" layoutY="43.0" text="Title" />
-                        <Label layoutX="29.0" layoutY="85.0" text="Genre" />
-                        <Label layoutX="31.0" layoutY="128.0" text="Price" />
-                        <DatePicker fx:id="mdate" layoutX="332.0" layoutY="39.0" />
-                        <Label layoutX="264.0" layoutY="43.0" text="Aired" />
-                        <TextArea fx:id="mdesc" layoutX="332.0" layoutY="102.0" prefHeight="200.0" prefWidth="200.0" />
-                        <Label layoutX="265.0" layoutY="106.0" text="Description" />
-                        <TextField fx:id="mrating" layoutX="79.0" layoutY="173.0" />
-                        <ChoiceBox fx:id="mtier" layoutX="79.0" layoutY="219.0" prefWidth="150.0" />
-                        <Label layoutX="31.0" layoutY="177.0" text="Rating" />
-                        <Label layoutX="29.0" layoutY="223.0" text="Tier" />
-                        <Button layoutX="79.0" layoutY="309.0" mnemonicParsing="false" onAction="#addMovie" prefHeight="25.0" prefWidth="150.0" text="ADD" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Series">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                         <TextField fx:id="stitle" layoutX="79.0" layoutY="39.0" />
-                         <TextField fx:id="sgenre" layoutX="79.0" layoutY="81.0" />
-                         <TextField fx:id="sprice" layoutX="79.0" layoutY="124.0" />
-                         <Label layoutX="31.0" layoutY="43.0" text="Title" />
-                         <Label layoutX="29.0" layoutY="85.0" text="Genre" />
-                         <Label layoutX="31.0" layoutY="128.0" text="Price" />
-                         <DatePicker fx:id="sdate" layoutX="332.0" layoutY="39.0" />
-                         <Label layoutX="264.0" layoutY="43.0" text="Aired" />
-                         <TextArea fx:id="sdesc" layoutX="332.0" layoutY="102.0" prefHeight="200.0" prefWidth="200.0" />
-                         <Label layoutX="265.0" layoutY="106.0" text="Description" />
-                         <TextField fx:id="srating" layoutX="79.0" layoutY="173.0" />
-                         <ChoiceBox fx:id="stier" layoutX="79.0" layoutY="219.0" prefWidth="150.0" />
-                         <Label layoutX="31.0" layoutY="177.0" text="Rating" />
-                         <Label layoutX="29.0" layoutY="223.0" text="Tier" />
-                         <Button layoutX="79.0" layoutY="309.0" mnemonicParsing="false" onAction="#addSeries" prefHeight="25.0" prefWidth="150.0" text="ADD" />
-                        <TextField fx:id="sepisodes" layoutX="80.0" layoutY="264.0" />
-                        <Label layoutX="26.0" layoutY="268.0" text="Episodes" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Event">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label layoutX="45.0" layoutY="39.0" text="Name" />
-                        <Label layoutX="47.0" layoutY="81.0" text="Price" />
-                        <Label layoutX="46.0" layoutY="119.0" text="Length" />
-                        <Label layoutX="300.0" layoutY="39.0" text="Date" />
-                        <TextField fx:id="ename" layoutX="98.0" layoutY="35.0" />
-                        <TextField fx:id="eprice" layoutX="98.0" layoutY="77.0" />
-                        <TextField fx:id="elength" layoutX="98.0" layoutY="115.0" />
-                        <DatePicker fx:id="edate" layoutX="340.0" layoutY="35.0" />
-                        <Button layoutX="98.0" layoutY="296.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="25.0" prefWidth="150.0" text="ADD" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="EntryController">
+    <children>
+        <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Movie">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TextField fx:id="mtitle" layoutX="79.0" layoutY="39.0"/>
+                                <TextField fx:id="mgenre" layoutX="79.0" layoutY="81.0"/>
+                                <TextField fx:id="mprice" layoutX="79.0" layoutY="124.0"/>
+                                <Label layoutX="31.0" layoutY="43.0" text="Title"/>
+                                <Label layoutX="29.0" layoutY="85.0" text="Genre"/>
+                                <Label layoutX="31.0" layoutY="128.0" text="Price"/>
+                                <DatePicker fx:id="mdate" layoutX="332.0" layoutY="39.0"/>
+                                <Label layoutX="264.0" layoutY="43.0" text="Aired"/>
+                                <TextArea fx:id="mdesc" layoutX="332.0" layoutY="102.0" prefHeight="200.0"
+                                          prefWidth="200.0"/>
+                                <Label layoutX="265.0" layoutY="106.0" text="Description"/>
+                                <TextField fx:id="mrating" layoutX="79.0" layoutY="173.0"/>
+                                <ChoiceBox fx:id="mtier" layoutX="79.0" layoutY="219.0" prefWidth="150.0"/>
+                                <Label layoutX="31.0" layoutY="177.0" text="Rating"/>
+                                <Label layoutX="29.0" layoutY="223.0" text="Tier"/>
+                                <Button layoutX="79.0" layoutY="309.0" mnemonicParsing="false" onAction="#addMovie"
+                                        prefHeight="25.0" prefWidth="150.0" text="ADD"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Series">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TextField fx:id="stitle" layoutX="79.0" layoutY="39.0"/>
+                                <TextField fx:id="sgenre" layoutX="79.0" layoutY="81.0"/>
+                                <TextField fx:id="sprice" layoutX="79.0" layoutY="124.0"/>
+                                <Label layoutX="31.0" layoutY="43.0" text="Title"/>
+                                <Label layoutX="29.0" layoutY="85.0" text="Genre"/>
+                                <Label layoutX="31.0" layoutY="128.0" text="Price"/>
+                                <DatePicker fx:id="sdate" layoutX="332.0" layoutY="39.0"/>
+                                <Label layoutX="264.0" layoutY="43.0" text="Aired"/>
+                                <TextArea fx:id="sdesc" layoutX="332.0" layoutY="102.0" prefHeight="200.0"
+                                          prefWidth="200.0"/>
+                                <Label layoutX="265.0" layoutY="106.0" text="Description"/>
+                                <TextField fx:id="srating" layoutX="79.0" layoutY="173.0"/>
+                                <ChoiceBox fx:id="stier" layoutX="79.0" layoutY="219.0" prefWidth="150.0"/>
+                                <Label layoutX="31.0" layoutY="177.0" text="Rating"/>
+                                <Label layoutX="29.0" layoutY="223.0" text="Tier"/>
+                                <Button layoutX="79.0" layoutY="309.0" mnemonicParsing="false" onAction="#addSeries"
+                                        prefHeight="25.0" prefWidth="150.0" text="ADD"/>
+                                <TextField fx:id="sepisodes" layoutX="80.0" layoutY="264.0"/>
+                                <Label layoutX="26.0" layoutY="268.0" text="Episodes"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Event">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label layoutX="45.0" layoutY="39.0" text="Name"/>
+                                <Label layoutX="47.0" layoutY="81.0" text="Price"/>
+                                <Label layoutX="46.0" layoutY="119.0" text="Length"/>
+                                <Label layoutX="300.0" layoutY="39.0" text="Date"/>
+                                <TextField fx:id="ename" layoutX="98.0" layoutY="35.0"/>
+                                <TextField fx:id="eprice" layoutX="98.0" layoutY="77.0"/>
+                                <TextField fx:id="elength" layoutX="98.0" layoutY="115.0"/>
+                                <DatePicker fx:id="edate" layoutX="340.0" layoutY="35.0"/>
+                                <Button layoutX="98.0" layoutY="296.0" mnemonicParsing="false" onAction="#addEvent"
+                                        prefHeight="25.0" prefWidth="150.0" text="ADD"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
 </AnchorPane>

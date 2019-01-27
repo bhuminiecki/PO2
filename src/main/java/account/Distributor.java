@@ -1,7 +1,8 @@
 package account;
 
-import java.math.BigDecimal;
 import simulation.Simulation;
+
+import java.math.BigDecimal;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -50,6 +51,10 @@ public class Distributor extends Account {
         return this.monthlyCost;
     }
 
+    public void setMonthlyCost(BigDecimal monthlyCost) {
+        this.monthlyCost = monthlyCost;
+    }
+
     /**
      * Returns accountNumber.
      *
@@ -59,8 +64,11 @@ public class Distributor extends Account {
         return this.accountNumber;
     }
 
-    public void run()
-    {
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public void run() {
         synchronized (getParentSimulation()) {
             while (super.getParentSimulation().isRun()) {
                 if (super.getParentSimulation().getCurrentDate().getDayOfMonth() == 1) {
@@ -75,15 +83,7 @@ public class Distributor extends Account {
         }
     }
 
-    public void setMonthlyCost(BigDecimal monthlyCost) {
-        this.monthlyCost = monthlyCost;
-    }
-
     public void setGotPaid(boolean gotPaid) {
         this.gotPaid = gotPaid;
-    }
-
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
     }
 }

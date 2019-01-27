@@ -47,11 +47,17 @@ public class Pool implements Serializable {
         // End of user code
     }
 
+    @NotNull
+    @Contract(" -> new")
+    private static String getRandomString() {
+        byte[] array = new byte[8];
+        new Random().nextBytes(array);
+        return new String(array, Charset.forName("UTF-8"));
+    }
 
     public void addEntry(Entry entry) {
         entries.add(entry);
     }
-
 
     public void removeSeries(int id) {
         // Start of user code for method removeSeries
@@ -74,14 +80,6 @@ public class Pool implements Serializable {
     public void showStatistics(String name) {
         // Start of user code for method showStatistics
         // End of user code
-    }
-
-    @NotNull
-    @Contract(" -> new")
-    private static String getRandomString() {
-        byte[] array = new byte[8];
-        new Random().nextBytes(array);
-        return new String(array, Charset.forName("UTF-8"));
     }
 
     // Start of user code (user defined methods for Pool)
@@ -120,14 +118,13 @@ public class Pool implements Serializable {
 
     public void genRandomMovie() {
         String temp = getRandomString();
-        while(existsEntry(temp))
-        {
+        while (existsEntry(temp)) {
             temp = getRandomString();
         }
-        genMovie(temp,getRandomString(),new BigDecimal(new Random().nextInt(100)),new Random().nextDouble()*10,new Random().nextInt(4),parent.getCurrentDate(),getRandomString());
+        genMovie(temp, getRandomString(), new BigDecimal(new Random().nextInt(100)), new Random().nextDouble() * 10, new Random().nextInt(4), parent.getCurrentDate(), getRandomString());
     }
 
-    public void genEvent(String title, double lenght, BigDecimal price, LocalDate date ) {
+    public void genEvent(String title, double lenght, BigDecimal price, LocalDate date) {
         Event event = new Event();
         event.setTitle(title);
         event.setLength(lenght);
@@ -138,11 +135,10 @@ public class Pool implements Serializable {
 
     public void genRandomEvent() {
         String temp = getRandomString();
-        while(existsEntry(temp))
-        {
+        while (existsEntry(temp)) {
             temp = getRandomString();
         }
-        genEvent(temp,new Random().nextDouble()*100,new BigDecimal(new Random().nextInt(100)),parent.getCurrentDate().plusDays(new Random().nextInt(100)));
+        genEvent(temp, new Random().nextDouble() * 100, new BigDecimal(new Random().nextInt(100)), parent.getCurrentDate().plusDays(new Random().nextInt(100)));
     }
 
     public void genSeries(String title, String genre, BigDecimal price, double rating, int tier, LocalDate date, String desc, int episodes) {
@@ -160,11 +156,10 @@ public class Pool implements Serializable {
 
     public void genRandomSeries() {
         String temp = getRandomString();
-        while(existsEntry(temp))
-        {
+        while (existsEntry(temp)) {
             temp = getRandomString();
         }
-        genSeries(temp,getRandomString(),new BigDecimal(new Random().nextInt(100)),new Random().nextDouble()*10,new Random().nextInt(4),parent.getCurrentDate(),getRandomString(),new Random().nextInt(30));
+        genSeries(temp, getRandomString(), new BigDecimal(new Random().nextInt(100)), new Random().nextDouble() * 10, new Random().nextInt(4), parent.getCurrentDate(), getRandomString(), new Random().nextInt(30));
     }
 
     private Episode genEpisode() {
@@ -182,11 +177,10 @@ public class Pool implements Serializable {
     }
 
     public boolean isEmpty() {
-        return entries.size()==0;
+        return entries.size() == 0;
     }
 
-    public int sizeOf()
-    {
+    public int sizeOf() {
         return entries.size();
     }
 }

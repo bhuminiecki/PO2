@@ -1,6 +1,5 @@
 package entry;
 
-import java.math.BigDecimal;
 // Start of user code (user defined imports)
 
 // End of user code

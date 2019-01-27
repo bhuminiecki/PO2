@@ -70,6 +70,10 @@ public class Series extends Entry {
         return this.genre;
     }
 
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     /**
      * Returns subscriptionTier.
      *
@@ -77,6 +81,10 @@ public class Series extends Entry {
      */
     public int getSubscriptionTier() {
         return this.subscriptionTier;
+    }
+
+    public void setSubscriptionTier(int subscriptionTier) {
+        this.subscriptionTier = subscriptionTier;
     }
 
     /**
@@ -88,6 +96,14 @@ public class Series extends Entry {
         return this.episodes;
     }
 
+    public void setEpisodes(int episodes) {
+        this.episodeNumber = episodes;
+    }
+
+    public void setEpisodes(ArrayList<Episode> episodes) {
+        this.episodes = episodes;
+    }
+
     /**
      * Returns actors.
      *
@@ -97,30 +113,14 @@ public class Series extends Entry {
         return this.actors;
     }
 
+    public void setActors(ArrayList<Actor> actors) {
+        this.actors = actors;
+    }
+
     public boolean canWatchTier(User user) {
-        if(user.getSubscriptionTier()>=subscriptionTier) {
+        if (user.getSubscriptionTier() >= subscriptionTier) {
             return true;
         }
         return false;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public void setSubscriptionTier(int subscriptionTier) {
-        this.subscriptionTier = subscriptionTier;
-    }
-
-    public void setEpisodes(int episodes) {
-        this.episodeNumber = episodes;
-    }
-
-    public void setEpisodes(ArrayList<Episode> episodes) {
-        this.episodes = episodes;
-    }
-
-    public void setActors(ArrayList<Actor> actors) {
-        this.actors = actors;
     }
 }

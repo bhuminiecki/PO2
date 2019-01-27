@@ -1,8 +1,5 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import simulation.Simulation;
-
-import javax.xml.soap.Text;
 import javafx.scene.control.TextField;
 
 public class UserController {
@@ -22,8 +19,7 @@ public class UserController {
     @FXML
     private TextField ucard;
 
-    public void add()
-    {
+    public void add() {
         synchronized (Main.getSimulation()) {
             Main.getSimulation().createUser(uname.getText(), upassword.getText(), uemail.getText(), tier.getValue());
             uname.setText("");
@@ -33,8 +29,7 @@ public class UserController {
         }
     }
 
-    public void close()
-    {
+    public void close() {
 
     }
 

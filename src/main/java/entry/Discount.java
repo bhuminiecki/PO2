@@ -8,10 +8,8 @@ import java.time.LocalDate;
 
 public class Discount implements Runnable, Serializable {
 
-    private BigDecimal value;
-
     private final Simulation parentSimulation;
-
+    private BigDecimal value;
     private LocalDate startDate;
 
     private LocalDate endDate;

@@ -1,6 +1,6 @@
 import javafx.fxml.FXML;
-
 import javafx.scene.control.TextField;
+
 import java.math.BigDecimal;
 
 public class DistributorController {
@@ -20,8 +20,7 @@ public class DistributorController {
     @FXML
     private TextField daccount;
 
-    public void add()
-    {
+    public void add() {
         synchronized (Main.getSimulation()) {
             Main.getSimulation().createDistributor(dname.getText(), dpassword.getText(), demail.getText(), new BigDecimal(Double.parseDouble(dpayment.getText())), Integer.parseInt(daccount.getText()));
             dname.setText("");
@@ -32,8 +31,7 @@ public class DistributorController {
         }
     }
 
-    public void close()
-    {
+    public void close() {
 
     }
 }

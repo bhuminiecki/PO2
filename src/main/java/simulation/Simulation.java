@@ -73,7 +73,6 @@ public class Simulation implements Runnable, Serializable {
                 monthlyCheck();
             }
         }
-
     }
 
     @NotNull
@@ -90,18 +89,22 @@ public class Simulation implements Runnable, Serializable {
         switch (choice)
         {
             case 0:
+                if (pool.sizeOf()<maxEntries)
                 pool.genRandomEvent();
                 break;
             case 1:
+                if (pool.sizeOf()<maxEntries)
                 pool.genRandomMovie();
                 break;
             case 2:
+                if (pool.sizeOf()<maxEntries)
                 pool.genRandomSeries();
                 break;
             case 3:
                 LocalDate dDate = currentDate.plusDays(new Random().nextInt(100));
                 createDiscount(pool.getRandomEntry(),dDate,dDate.plusDays(new Random().nextInt(20)+20), new BigDecimal( new Random().nextDouble()*0.45+0.05));
             default:
+                if(accounts.size()<maxUsers)
                 createRandomUser();
         }
     }
@@ -253,5 +256,9 @@ public class Simulation implements Runnable, Serializable {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public ArrayList<Account> getAccounts() {
+        return accounts;
     }
 }

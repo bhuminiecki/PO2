@@ -1,3 +1,5 @@
+import account.*;
+import entry.Entry;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -88,7 +90,26 @@ public class Controller {
 
     public void refresh()
     {
-
+        entries.getItems().clear();
+        for(Entry temp : Main.getSimulation().getPool().getEntries()){
+            entries.getItems().add(temp.toString());
+        }
+        users.getItems().clear();
+        for(Account temp : Main.getSimulation().getAccounts())
+        {
+            if(temp instanceof User)
+            {
+                users.getItems().add(temp.getUsername());
+            }
+        }
+        distributors.getItems().clear();
+        for(Account temp : Main.getSimulation().getAccounts())
+        {
+            if(temp instanceof Distributor)
+            {
+                distributors.getItems().add(temp.getUsername());
+            }
+        }
     }
 
     public void addEntries() {
@@ -133,8 +154,8 @@ public class Controller {
      */
     public void showUser(Stage user) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("user.fxml"));
-        user.setTitle("NETBLING");
-        user.setScene(new Scene(root, 540, 485));
+        user.setTitle("Users");
+        user.setScene(new Scene(root, 600, 400));
         user.show();
     }
 
@@ -145,8 +166,8 @@ public class Controller {
      */
     public void showDistributor(Stage distributor) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("distributor.fxml"));
-        distributor.setTitle("NETBLING");
-        distributor.setScene(new Scene(root, 540, 485));
+        distributor.setTitle("Distributors");
+        distributor.setScene(new Scene(root, 600, 400));
         distributor.show();
     }
 
@@ -158,8 +179,8 @@ public class Controller {
      */
     public void showEntries(Stage entries) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("entry.fxml"));
-        entries.setTitle("NETBLING");
-        entries.setScene(new Scene(root, 540, 485));
+        entries.setTitle("Entries");
+        entries.setScene(new Scene(root, 600, 400));
         entries.show();
     }
 }

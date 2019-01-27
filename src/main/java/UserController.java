@@ -3,7 +3,7 @@ import javafx.scene.control.ChoiceBox;
 import simulation.Simulation;
 
 import javax.xml.soap.Text;
-import java.awt.*;
+import javafx.scene.control.TextField;
 
 public class UserController {
 
@@ -25,6 +25,10 @@ public class UserController {
     public void add()
     {
         Main.getSimulation().createUser(uname.getText(),upassword.getText(),uemail.getText(),tier.getValue());
+        uname.setText("");
+        upassword.setText("");
+        uemail.setText("");
+        ucard.setText("");
     }
 
     public void close()

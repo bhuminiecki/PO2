@@ -9,10 +9,8 @@ import java.io.*;
 
 /* TODO:
     -thread synchronization
-    -linking controllers
-    -saving settings
-    -popup management
     -plot
+    -make it work somehow
 */
 public class Main extends Application {
 

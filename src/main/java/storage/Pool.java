@@ -184,4 +184,9 @@ public class Pool implements Serializable {
     public boolean isEmpty() {
         return entries.size()==0;
     }
+
+    public int sizeOf()
+    {
+        return entries.size();
+    }
 }
